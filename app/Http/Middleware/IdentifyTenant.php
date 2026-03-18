@@ -16,8 +16,12 @@ class IdentifyTenant
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check()) {
-            app()->singleton('tenant_id', fn() => auth()->user()->tenant_id);
+            // We bind the ID so the Trait can find it
+            app()->singleton('tenant_id', function () {
+                return auth()->user()->tenant_id;
+            });
         }
+
         return $next($request);
     }
 }

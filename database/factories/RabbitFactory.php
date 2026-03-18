@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Rabbit;
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,13 @@ class RabbitFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        return [
+            'tenant_id' => Tenant::count() > 0 ? Tenant::inRandomOrder()->first()->id : Tenant::factory(),
+            'name' => $this->faker->firstName(),
+            'tattoo_id' => $this->faker->unique()->bothify('??-#####'),
+            'sex' => $this->faker->randomElement(['buck', 'doe']),
+            'sire_id' => null,
+            'dam_id' => null,
+        ];
     }
 }
