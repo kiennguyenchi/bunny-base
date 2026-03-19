@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RabbitController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,7 +23,8 @@ Route::middleware(['auth', 'tenant'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('rabbits', \App\Http\Controllers\RabbitController::class)->only(['index', 'show', 'create', 'store']);
+    Route::resource('rabbits', RabbitController::class)->only(['index', 'show', 'create', 'store']);
+    Route::post('rabbits/{rabbit}/download-pedigree', [RabbitController::class, 'downloadPedigree'])->name('rabbits.pedigree.download');
 });
 
 

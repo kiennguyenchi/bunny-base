@@ -35,6 +35,9 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'tenant_name' => $request->user()?->tenant?->name,
             ],
+            'flash' => [
+                'status' => $request->session()->get('status'),
+            ]
         ];
     }
 }
