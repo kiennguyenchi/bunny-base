@@ -1,58 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🐇 BunnyBase: Rabbitry Management Prototype
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This prototype leverages the latest ecosystem features and core concepts of Laravel:
 
-## About Laravel
+- **Frameworks:** **Laravel 13** (PHP 8.4+) and **Vue 3**.
+- **Multi-Tenancy:** Implemented a single-database tenancy model where data is strictly scoped to a `Tenant` to ensure breeder privacy.
+- **Service Container & Pattern:** Used Dependency Injection to decouple the **Pedigree Generation Logic** from the Controllers.
+- **Queues & Jobs:** Background processing for PDF generation (conceptual build) to keep the UI snappy for the user.
+- **Policies:** Authorization to ensure users can only view rabbits belonging to their specific tenant.
+- **Testing:** Comprehensive test suite using **PHPUnit/Pest** covering core CRUD and pedigree recursive logic.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Core Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The application focuses on the "brain" of rabbitry management—the pedigree and data integrity.
 
-## Learning Laravel
+- **Tenant-Scoped Dashboard:** View and manage rabbits belonging exclusively to your team.
+- **Rabbit Register Form:** Register rabbit with essential data: **Name, Sex, Tattoo (ID), Sire (Father), and Dam (Mother)**.
+- **Dynamic Pedigree Tree:** A recursive frontend component built in Vue 3 that visualizes ancestral lines.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Setup Guide
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Follow these steps to get the prototype running locally.
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 1. Clone and Install Dependencies
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+```bash
+npm install
+```
 
-## Contributing
+### 2. Configure Environment Variables
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Copy the example environment file and update your database credentials:
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+### 3. Database & Seeding
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+This will create the tables and seed default "Tenant" data and sample rabbits for testing:
 
-## License
+```bash
+php artisan migrate:fresh --seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Running the Application
+
+You will need two terminal windows running:
+
+**Terminal 1 (Backend):**
+
+```bash
+php artisan serve
+```
+
+**Terminal 2 (Frontend):**
+
+```bash
+npm run dev
+```
+
+**Terminal 3 (Queue Worker - Required for PDF Export):**
+
+```bash
+php artisan queue:work
+```

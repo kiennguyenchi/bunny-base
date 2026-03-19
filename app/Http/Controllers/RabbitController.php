@@ -60,6 +60,6 @@ class RabbitController extends Controller
 
         ProcessPedigreePdf::dispatch($rabbit, $request->user());
 
-        return redirect()->back()->with('status', 'Pedigree PDF generation has been started. It will be available for download shortly.');
+        return redirect()->back()->with('status', 'Pedigree PDF generation has been started. It will be available for download shortly. (For demonstration, I print the tree structure to the queue:worker console)');
     }
 }
