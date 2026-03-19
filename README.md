@@ -16,8 +16,13 @@ This prototype leverages the latest ecosystem features and core concepts of Lara
 The application focuses on the "brain" of rabbitry management—the pedigree and data integrity.
 
 - **Tenant-Scoped Dashboard:** View and manage rabbits belonging exclusively to your team.
+<img width="1242" height="536" alt="Screenshot 2026-03-19 at 7 29 23 PM" src="https://github.com/user-attachments/assets/662450c0-345b-4d5e-bc1b-fcf4da034584" />
+
 - **Rabbit Register Form:** Register rabbit with essential data: **Name, Sex, Tattoo (ID), Sire (Father), and Dam (Mother)**.
+<img width="462" height="442" alt="Screenshot 2026-03-19 at 7 29 29 PM" src="https://github.com/user-attachments/assets/d302d947-b74a-4eea-a9e2-1a10eb3cfe77" />
+
 - **Dynamic Pedigree Tree:** A recursive frontend component built in Vue 3 that visualizes ancestral lines.
+<img width="1234" height="496" alt="Screenshot 2026-03-19 at 7 29 51 PM" src="https://github.com/user-attachments/assets/b8880459-f344-4563-98ff-eac2d3631483" />
 
 ---
 
