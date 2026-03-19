@@ -20,7 +20,7 @@ class ProcessPedigreePdf implements ShouldQueue
     {
         $tree = $engine->getTree($this->rabbit);
 
-        // For demonstration, I print the tree structure to the queue console
+        // For demonstration, I print the tree structure to the queue:worker console
         print_r($tree->toArray());
 
         // In reality, here is my approach
