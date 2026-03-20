@@ -35,7 +35,7 @@ class RabbitControllerTest extends TestCase
             ->assertInertia(
                 fn(AssertableInertia $page) => $page
                     ->component('Rabbits/Index')
-                    ->has('rabbits', 3)
+                    ->has('rabbits.data', 3)
             );
     }
 
