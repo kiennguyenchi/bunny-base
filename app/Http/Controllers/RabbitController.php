@@ -46,10 +46,7 @@ class RabbitController extends Controller
 
     public function store(StoreRabbitRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $validated['tenant_id'] = $request->user()->tenant_id;
-
-        Rabbit::create($validated);
+        Rabbit::create($request->validated());
 
         return redirect()->route('rabbits.index');
     }
