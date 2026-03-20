@@ -14,16 +14,21 @@ use Inertia\Response;
 
 class RabbitController extends Controller
 {
+    private const PAGINATION_SIZE = 10;
+
     public function index(): Response
     {
         Gate::authorize('viewAny', Rabbit::class);
 
         return Inertia::render('Rabbits/Index', [
-            'rabbits' => Rabbit::with(['sire', 'dam'])->latest()->get()
+            'rabbits' => Rabbit::with(['sire', 'dam'])
+                ->select('id', 'name', 'tattoo_id', 'sex', 'sire_id', 'dam_id')
+                ->latest()
+                ->paginate(self::PAGINATION_SIZE)
         ]);
     }
 
-    public function show(Request $request, Rabbit $rabbit, PedigreeEngine $engine): Response
+    public function show(Rabbit $rabbit, PedigreeEngine $engine): Response
     {
         Gate::authorize('view', $rabbit);
 

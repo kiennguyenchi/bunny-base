@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
-defineProps({ rabbits: Array });
+defineProps({ rabbits: Object });
 </script>
 
 <template>
@@ -25,7 +25,7 @@ defineProps({ rabbits: Array });
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-            <tr v-for="rabbit in rabbits" :key="rabbit.id">
+            <tr v-for="rabbit in rabbits.data" :key="rabbit.id">
               <td class="px-6 py-4">
                 <div class="font-bold">{{ rabbit.name }}</div>
                 <div class="text-sm text-gray-500">#{{ rabbit.tattoo_id }}</div>
@@ -41,6 +41,24 @@ defineProps({ rabbits: Array });
           </tbody>
         </table>
       </div>
+
+      <div class="mt-6 flex justify-center">
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <template v-for="(link, k) in rabbits.links" :key="k">
+                    <div v-if="link.url === null"
+                        class="px-4 py-2 text-sm leading-4 text-gray-400 border rounded"
+                        v-html="link.label"
+                    />
+
+                    <Link v-else
+                        :href="link.url"
+                        class="px-4 py-2 text-sm leading-4 border rounded hover:bg-white focus:border-indigo-500 focus:text-indigo-500"
+                        :class="{ 'bg-blue-600 text-white': link.active }"
+                        v-html="link.label"
+                    />
+                </template>
+            </nav>
+        </div>
     </div>
   </AuthenticatedLayout>
 </template>
