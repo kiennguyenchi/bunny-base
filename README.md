@@ -2,7 +2,7 @@
 
 This prototype leverages the latest ecosystem features and core concepts of Laravel:
 
-- **Frameworks:** **Laravel 13** (PHP 8.4+) and **Vue 3**.
+- **Framework:** **Laravel 13** (PHP 8.4+) and **Vue 3**.
 - **Multi-Tenancy:** Implemented a single-database tenancy model where data is strictly scoped to a `Tenant` to ensure breeder privacy.
 - **Service Container & Pattern:** Used Dependency Injection to decouple the **Pedigree Generation Logic** from the Controllers.
 - **Queues & Jobs:** Background processing for PDF generation (conceptual build) to keep the UI snappy for the user.
